@@ -1,0 +1,26 @@
+<% title = 'Edit Post'; %>
+
+<h2>Edit Post</h2>
+<form action="/edit/<%= post.id %>" method="POST">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" value="<%= post.title %>" required>
+  </div>
+  <div class="mb-3">
+    <label for="author" class="form-label">Author</label>
+    <input type="text" class="form-control" id="author" name="author" value="<%= post.author %>" required readonly>
+  </div>
+  <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select class="form-select" id="category" name="category" required>
+      <% categories.forEach(category => { %>
+        <option value="<%= category %>" <%= category === post.category ? 'selected' : '' %>><%= category %></option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="content" class="form-label">Content</label>
+    <textarea class="form-control" id="content" name="content" rows="5" required><%= post.content %></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Update Post</button>
+</form>

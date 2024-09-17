@@ -1,0 +1,81 @@
+<% title = 'Create New Post'; %>
+
+<h2>Create New Post</h2>
+<form action="/create-post" method="POST" id="createPostForm">
+  <div class="mb-3">
+    <label for="title" class="form-label">Title</label>
+    <input type="text" class="form-control" id="title" name="title" required />
+  </div>
+  <div class="mb-3">
+    <label for="author" class="form-label">Author</label>
+    <input
+      type="text"
+      class="form-control"
+      id="author"
+      name="author"
+      required
+    />
+  </div>
+  <div class="mb-3">
+    <label for="category" class="form-label">Category</label>
+    <select class="form-select" id="category" name="category" required>
+      <option value="">Select a category</option>
+      <% categories.forEach(category => { %>
+      <option value="<%= category %>"><%= category %></option>
+      <% }); %>
+      <option value="new">Create new category</option>
+    </select>
+  </div>
+  <div class="mb-3" id="newCategoryField" style="display: none">
+    <label for="newCategory" class="form-label">New Category Name</label>
+    <input type="text" class="form-control" id="newCategory" />
+  </div>
+  <div class="mb-3">
+    <label for="content" class="form-label">Content</label>
+    <textarea
+      class="form-control"
+      id="content"
+      name="content"
+      rows="5"
+      required
+    ></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Create Post</button>
+</form>
+
+<script>
+  const categorySelect = document.getElementById("category");
+  const newCategoryField = document.getElementById("newCategoryField");
+  const newCategoryInput = document.getElementById("newCategory");
+  const form = document.getElementById("createPostForm");
+
+  categorySelect.addEventListener("change", function () {
+    if (this.value === "new") {
+      newCategoryField.style.display = "block";
+      newCategoryInput.setAttribute("required", "required");
+    } else {
+      newCategoryField.style.display = "none";
+      newCategoryInput.removeAttribute("required");
+      newCategoryInput.value = "";
+    }
+  });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (categorySelect.value === "new") {
+      const newCategoryValue = newCategoryInput.value.trim();
+      if (newCategoryValue === "") {
+        alert("Please enter a name for the new category!");
+        return;
+      }
+      // Create a new option element
+      const newOption = document.createElement("option");
+      newOption.value = newCategoryValue;
+      newOption.text = newCategoryValue;
+      // Add the new option to the select
+      categorySelect.appendChild(newOption);
+      // Set the select's value to the new category value
+      categorySelect.value = newCategoryValue;
+    }
+    this.submit();
+  });
+</script>
