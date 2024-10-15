@@ -6,16 +6,7 @@
     <label for="title" class="form-label">Title</label>
     <input type="text" class="form-control" id="title" name="title" required />
   </div>
-  <div class="mb-3">
-    <label for="author" class="form-label">Author</label>
-    <input
-      type="text"
-      class="form-control"
-      id="author"
-      name="author"
-      required
-    />
-  </div>
+  <!-- Removed Author Field from Project 1-->
   <div class="mb-3">
     <label for="category" class="form-label">Category</label>
     <select class="form-select" id="category" name="category" required>
@@ -28,7 +19,12 @@
   </div>
   <div class="mb-3" id="newCategoryField" style="display: none">
     <label for="newCategory" class="form-label">New Category Name</label>
-    <input type="text" class="form-control" id="newCategory" />
+    <input
+      type="text"
+      class="form-control"
+      id="newCategory"
+      name="newCategory"
+    />
   </div>
   <div class="mb-3">
     <label for="content" class="form-label">Content</label>
@@ -58,24 +54,5 @@
       newCategoryInput.removeAttribute("required");
       newCategoryInput.value = "";
     }
-  });
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (categorySelect.value === "new") {
-      const newCategoryValue = newCategoryInput.value.trim();
-      if (newCategoryValue === "") {
-        alert("Please enter a name for the new category!");
-        return;
-      }
-      // Create a new option element
-      const newOption = document.createElement("option");
-      newOption.value = newCategoryValue;
-      newOption.text = newCategoryValue;
-      // Add the new option to the select
-      categorySelect.appendChild(newOption);
-      // Set the select's value to the new category value
-      categorySelect.value = newCategoryValue;
-    }
-    this.submit();
   });
 </script>
